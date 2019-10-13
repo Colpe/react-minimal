@@ -15,8 +15,9 @@ console.log(generateArray(10));
 
 
 const generateRandomArray = (n) =>( Array.from(Array(n),(x,index)=>Math.ceil(Math.random()*24 +1)) )
-
 console.log(generateRandomArray(10));
 
+const array =[2, 56, 23, 88, 17, 4];
+console.log(array.filter(x=>x>15));
 
 export default MyApp
