@@ -20,4 +20,7 @@ console.log(generateRandomArray(10));
 const array =[2, 56, 23, 88, 17, 4];
 console.log(array.filter(x=>x>15));
 
+const array5 = [2, 5, 8, 10];
+console.log(array5.map(x=>Math.sqrt(x)));
+
 export default MyApp
