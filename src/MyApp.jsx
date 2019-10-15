@@ -26,8 +26,7 @@ class MyApp extends React.Component {
         <input type="number" value={this.state.b} onChange={(event) => this.setB(event)} />
         <br />
         <p>{this.state.isRangeValid ? generateRandomArray(10, this.state.a, this.state.b).toString() : ""}</p>
-        {console.timeEnd("Render " + this.counter)}
-        {this.counter++}
+        {console.timeEnd("Render " + this.counter++)}
       </div>
     )
   }
