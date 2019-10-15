@@ -15,27 +15,29 @@ class MyApp extends React.Component {
   }
 
   render() {
-    return (
+    console.time("Render " + this.counter)
+
+    var v = (
       <div>
-        {console.time("Render " + this.counter)}
-        <AppTitle />
-        <Lab1App />
-        <label>A: </label>
-        <input type="number" value={this.state.a} onChange={(event) => this.setA(event)} />
-        <label>  B: </label>
-        <input type="number" value={this.state.b} onChange={(event) => this.setB(event)} />
-        <br />
-        <p>{this.state.isRangeValid ? generateRandomArray(10, this.state.a, this.state.b).toString() : ""}</p>
-        {console.timeEnd("Render " + this.counter++)}
-      </div>
-    )
+      <AppTitle />
+      <Lab1App />
+      <label>A: </label>
+      <input type="number" value={this.state.a} onChange={(event) => this.setA(event)} />
+      <label>  B: </label>
+      <input type="number" value={this.state.b} onChange={(event) => this.setB(event)} />
+      <br />
+      <p>{this.state.isRangeValid ? generateArray( this.state.a, this.state.b).toString() : ""}</p>
+    </div>);
+
+    console.timeEnd("Render " + this.counter++)
+    return v;
   }
 
   setA = (event) => {
-    console.log("Value changed a:" + event.target.value)
+    console.log("Value changed a:" + parseInt(event.target.value))
 
     this.setState({
-      a: event.target.value,
+      a: parseInt(event.target.value),
       isRangeValid: this.checkStateIsValid(event.target.value, this.state.b)
     })
   }
@@ -44,8 +46,8 @@ class MyApp extends React.Component {
     console.log("Value changed b:" + event.target.value)
 
     this.setState({
-      b: event.target.value,
-      isRangeValid: this.checkStateIsValid(this.state.a, event.target.value)
+      b: parseInt(event.target.value),
+      isRangeValid: this.checkStateIsValid(this.state.a, parseInt(event.target.value))
     })
   }
 
@@ -56,7 +58,8 @@ class MyApp extends React.Component {
   }
 }
 
-const generateRandomArray = (n, a, b) => (Array.from(Array(n), (x, index) => Math.ceil(Math.random() * (b - a) + a)))
+//const generateRandomArray = (n, a, b) => (Array.from(Array(n), (x, index) => Math.ceil(Math.random() * (b - a) + a)))
+const generateArray = (a,b) => (Array.from(Array(b-a +1), (x, index) => index +a));
 
 
 export default MyApp
