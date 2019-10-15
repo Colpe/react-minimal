@@ -3,6 +3,10 @@ import AppTitle from './AppTitle'
 import Lab1App from './Lab1App'
 
 class MyApp extends React.Component {
+  constructor(props) {
+    super(props);
+    this.counter = 0;
+  }
 
   state = {
     a: 1,
@@ -13,6 +17,7 @@ class MyApp extends React.Component {
   render() {
     return (
       <div>
+        {console.time("Render " + this.counter)}
         <AppTitle />
         <Lab1App />
         <label>A: </label>
@@ -21,6 +26,8 @@ class MyApp extends React.Component {
         <input type="number" value={this.state.b} onChange={(event) => this.setB(event)} />
         <br />
         <p>{this.state.isRangeValid ? generateRandomArray(10, this.state.a, this.state.b).toString() : ""}</p>
+        {console.timeEnd("Render " + this.counter)}
+        {this.counter++}
       </div>
     )
   }
@@ -39,7 +46,7 @@ class MyApp extends React.Component {
 
     this.setState({
       b: event.target.value,
-      isRangeValid: this.checkStateIsValid( this.state.a, event.target.value)
+      isRangeValid: this.checkStateIsValid(this.state.a, event.target.value)
     })
   }
 
