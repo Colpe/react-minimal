@@ -6,12 +6,12 @@ class MyApp extends React.Component {
   constructor(props) {
     super(props);
     this.counter = 0;
+    this.a = 0;
+    this.b = 0;
   }
 
   state = {
-    a: 1,
-    b: 10,
-    isRangeValid: true
+    array: []
   }
 
   render() {
@@ -19,35 +19,40 @@ class MyApp extends React.Component {
 
     var v = (
       <div>
-      <AppTitle />
-      <Lab1App />
-      <label>A: </label>
-      <input type="number" value={this.state.a} onChange={(event) => this.setA(event)} />
-      <label>  B: </label>
-      <input type="number" value={this.state.b} onChange={(event) => this.setB(event)} />
-      <br />
-      <p>{this.state.isRangeValid ? generateArray( this.state.a, this.state.b).toString() : ""}</p>
-    </div>);
+        <AppTitle />
+        <Lab1App />
+        <label>A: </label>
+        <input type="number" value={this.a} onChange={this.setA} />
+        <label>  B: </label>
+        <input type="number" value={this.b} onChange={this.setB} />
+        <br />
+        <p>{this.state.array.toString()}</p>
+        <button onClick={this.squareRoot}>Process array</button>
+      </div>);
 
     console.timeEnd("Render " + this.counter++)
     return v;
   }
 
+  squareRoot = () => {
+    this.setState({
+      array: this.state.array.map(x => Math.sqrt(x))
+    })
+  };
+
   setA = (event) => {
     console.log("Value changed a:" + parseInt(event.target.value))
-
+    this.a = parseInt(event.target.value);
     this.setState({
-      a: parseInt(event.target.value),
-      isRangeValid: this.checkStateIsValid(event.target.value, this.state.b)
+      array: this.checkStateIsValid(this.a, this.b) ? this.generateArray(this.a, this.b) : []
     })
   }
 
   setB = (event) => {
     console.log("Value changed b:" + event.target.value)
-
+    this.b = parseInt(event.target.value);
     this.setState({
-      b: parseInt(event.target.value),
-      isRangeValid: this.checkStateIsValid(this.state.a, parseInt(event.target.value))
+      array: this.checkStateIsValid(this.a, this.b) ? this.generateArray(this.a, this.b) : []
     })
   }
 
@@ -56,10 +61,11 @@ class MyApp extends React.Component {
       return true;
     return false;
   }
+
+  //const generateRandomArray = (n, a, b) => (Array.from(Array(n), (x, index) => Math.ceil(Math.random() * (b - a) + a)))
+  generateArray = (a, b) => {
+    return Array.from(Array(b - a + 1), (x, index) => index + a)
+  };
 }
-
-//const generateRandomArray = (n, a, b) => (Array.from(Array(n), (x, index) => Math.ceil(Math.random() * (b - a) + a)))
-const generateArray = (a,b) => (Array.from(Array(b-a +1), (x, index) => index +a));
-
 
 export default MyApp
